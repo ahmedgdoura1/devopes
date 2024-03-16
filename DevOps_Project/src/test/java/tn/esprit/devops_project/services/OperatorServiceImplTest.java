@@ -1,4 +1,5 @@
 package tn.esprit.devops_project.services;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -10,10 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import tn.esprit.devops_project.entities.Operator;
 import tn.esprit.devops_project.repositories.OperatorRepository;
-
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
@@ -22,12 +22,11 @@ class OperatorTest {
     private OperatorRepository repository;
     @InjectMocks
     private OperatorServiceImpl service;
-
     @SpringBootTest
+    @Nested
     class OperatorServiceImplTest {
         @Autowired
         OperatorRepository operatorRepository;
-
         @Test
         void retrieveOperator() {
             Operator operator = new Operator();
