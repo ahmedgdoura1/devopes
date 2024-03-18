@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Nested
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 class OperatorTest {
     @Mock
     private OperatorRepository repository;
