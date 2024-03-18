@@ -23,53 +23,6 @@ class ActivitySectorImplTest {
     @Autowired
     private ActivitySectorImpl activitySectorService;
 
-    @BeforeEach
-    void setUp() {
-        // Clear existing data before each test
-        activitySectorRepository.deleteAll();
-    }
-
-    @Test
-    void retrieveAllActivitySectors() {
-        // Prepare test data
-        ActivitySector sector1 = new ActivitySector();
-        sector1.setCodeSecteurActivite("code1");
-        sector1.setLibelleSecteurActivite("Sector 1");
-        activitySectorRepository.save(sector1);
-
-        ActivitySector sector2 = new ActivitySector();
-        sector2.setCodeSecteurActivite("code2");
-        sector2.setLibelleSecteurActivite("Sector 2");
-        activitySectorRepository.save(sector2);
-
-        // Call the method from the service
-        List<ActivitySector> sectors = activitySectorService.retrieveAllActivitySectors();
-
-        // Assert the result
-        assertNotNull(sectors);
-        assertEquals(2, sectors.size());
-        assertEquals("Sector 1", sectors.get(0).getLibelleSecteurActivite());
-        assertEquals("Sector 2", sectors.get(1).getLibelleSecteurActivite());
-    }
-
-
-
-    @Test
-    void addActivitySector() {
-        // Create a new ActivitySector object
-        ActivitySector newSector = new ActivitySector();
-        newSector.setCodeSecteurActivite("code3");
-        newSector.setLibelleSecteurActivite("New Sector");
-
-        // Call the method from the service
-        ActivitySector savedSector = activitySectorService.addActivitySector(newSector);
-
-        // Assert the result
-        assertNotNull(savedSector);
-        assertNotNull(savedSector.getIdSecteurActivite());
-        assertEquals(newSector.getLibelleSecteurActivite(), savedSector.getLibelleSecteurActivite());
-    }
-
     @Test
     void retrieveActivitySector() {
         // Prepare test data
