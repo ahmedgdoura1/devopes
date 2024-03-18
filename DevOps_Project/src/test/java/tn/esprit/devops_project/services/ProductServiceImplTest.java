@@ -33,7 +33,7 @@ class ProductServiceImplTest {
     @Test
     public void testAddProduct() {
 
-        Stock stock = new Stock(1L,"BERSHKA",null);
+        Stock stock = new Stock(1L,"EXIST",null);
         Stock savedStock = stockRepository.save(stock);
         /*Product product = new Product(6L,"T-shirt",320,50,ProductCategory.CLOTHING,null);
         Product savedProduct = iProductService.addProduct(product, 1L);
