@@ -20,26 +20,26 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ActiveProfiles("test")
 class OperatorTest {
     @Mock
-    private OperatorRepository repository;
+    private OperatorRepository repositoryMock;
     @InjectMocks
-    private OperatorServiceImpl service;
+    private OperatorServiceImpl serviceOperatorMock;
     @Test
-    public void retrieveOperator_ValidId_OperatorReturned(){
+    public void retrieveOperator(){
         Operator operator = new Operator();
         operator.setIdOperateur(1L);
         operator.setFname("test");
 
-        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(operator));
+        Mockito.when(repositoryMock.findById(1L)).thenReturn(Optional.of(operator));
 
         // Act
-        Operator retrievedOperator = service.retrieveOperator(1L);
+        Operator retrievedOperator = serviceOperatorMock.retrieveOperator(1L);
 
         // Assert
         assertNotNull(retrievedOperator);
         assertEquals(1L, retrievedOperator.getIdOperateur()); // Improved assertion for better readability
         assertEquals("test", retrievedOperator.getFname());
 
-        Mockito.verify(repository, Mockito.times(1)).findById(1L);
+        Mockito.verify(repositoryMock, Mockito.times(1)).findById(1L);
 
     }
 }
