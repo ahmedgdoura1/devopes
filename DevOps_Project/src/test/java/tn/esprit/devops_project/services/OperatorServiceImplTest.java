@@ -63,4 +63,35 @@ class OperatorTest {
         // Assert that the returned operator is the same as the one we added
         assertEquals(operatorToAdd, addedOperator);
     }
+    @Test
+    public void deleteOperator() {
+        // Set up
+        Long operatorId = 1L;
+
+        // Call the method to delete the operator
+        serviceOperatorMock.deleteOperator(operatorId);
+
+        // Verify that the repository's deleteById method was called with the correct argument
+        verify(repositoryMock, times(1)).deleteById(operatorId);
+    }
+
+    @Test
+    public void updateOperator() {
+        // Set up
+        Operator operatorToUpdate = new Operator();
+        operatorToUpdate.setIdOperateur(1L);
+        operatorToUpdate.setFname("UpdatedName");
+
+        // Mock the behavior of the repository's save method
+        when(repositoryMock.save(operatorToUpdate)).thenReturn(operatorToUpdate);
+
+        // Call the method to update the operator
+        Operator updatedOperator = serviceOperatorMock.updateOperator(operatorToUpdate);
+
+        // Verify that the repository's save method was called with the correct operator
+        verify(repositoryMock, times(1)).save(operatorToUpdate);
+
+        // Assert that the returned operator is the same as the one we updated
+        assertEquals(operatorToUpdate, updatedOperator);
+    }
 }
