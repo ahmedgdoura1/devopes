@@ -15,6 +15,7 @@ import tn.esprit.devops_project.services.Iservices.IProductService;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
@@ -32,33 +33,55 @@ class ProductServiceImplTest {
 
     @Test
     public void testAddProduct() {
-
-        Stock stock = new Stock(1L,"DELL",null);
+        // Create a sample stock
+        Stock stock = new Stock(1L, "EXIST", null);
         Stock savedStock = stockRepository.save(stock);
-        /*Product product = new Product(6L,"T-shirt",320,50,ProductCategory.CLOTHING,null);
-        Product savedProduct = iProductService.addProduct(product, 1L);
-        //productRepository.save(savedProduct);
-        Stock savedStock = stockRepository.findById(savedProduct.getStock().getIdStock()).orElse(null);
+
+        // Create a sample product
+        Product product = new Product();
+        product.setTitle("T-shirt");
+        product.setPrice(320);
+        product.setQuantity(50);
+        product.setCategory(ProductCategory.CLOTHING);
+
+        // Add product with the created stock's ID
+        Product savedProduct = iProductService.addProduct(product, savedStock.getIdStock());
+
+        // Ensure the saved stock and product are not null
         assertNotNull(savedStock);
         assertNotNull(savedProduct);
-        Product retrievedProduct = productRepository.findById(savedProduct.getIdProduct()).orElse(null);
-        */
-        assertNotNull(savedStock);
 
+        // Ensure product properties are correctly set
+        assertEquals("T-shirt", savedProduct.getTitle());
+        assertEquals(320, savedProduct.getPrice());
+        assertEquals(50, savedProduct.getQuantity());
+        assertEquals(ProductCategory.CLOTHING, savedProduct.getCategory());
+        assertEquals(savedStock, savedProduct.getStock());
+    }
 
-    }
-   /* @Test
-    public void retrieveAllProducts(){
-        List<Product> products = iProductService.retreiveAllProduct();
-        assertNotNull(products);
-    }
+    // Write similar test methods for other service operations like retrieve, update, delete, etc.
+    // For example:
 
     @Test
-    public void retrieveProduct(){
-        Product savedProduct = iProductService.retrieveProduct(1L);
-        assertNotNull(savedProduct);
-        assertEquals(1L,1L);
-    }
-*/
+    public void testRetrieveProduct() {
+        // Add a sample product
+        Stock stock = new Stock(1L, "DELL", null);
+        Stock savedStock = stockRepository.save(stock);
+        Product product = new Product();
+        product.setTitle("Laptop");
+        product.setPrice(1000);
+        product.setQuantity(10);
+        product.setCategory(ProductCategory.ELECTRONICS);
+        product.setStock(savedStock);
+        Product savedProduct = productRepository.save(product);
 
+        // Retrieve the product
+        Product retrievedProduct = iProductService.retrieveProduct(savedProduct.getIdProduct());
+
+        // Ensure the retrieved product matches the saved product
+        assertNotNull(retrievedProduct);
+        assertEquals(savedProduct.getIdProduct(), retrievedProduct.getIdProduct());
+        assertEquals(savedProduct.getTitle(), retrievedProduct.getTitle());
+        // Add assertions for other fields as well
+    }
 }
