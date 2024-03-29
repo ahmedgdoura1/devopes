@@ -18,7 +18,7 @@ services:
   mysql:
     image: mysql:5.7
     networks: [projet]
-    ports: ["3306:3306"]
+    ports: ["3307:3307"]
     volumes: ["db:/var/lib/mysql"]
     environment:
       - MYSQL_ROOT_PASSWORD=root
@@ -38,6 +38,6 @@ services:
     ports: ["3000:3000"]
     environment:
       - SERVER_PORT=3000
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/devops?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:330/devops?createDatabaseIfNotExist=true
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
